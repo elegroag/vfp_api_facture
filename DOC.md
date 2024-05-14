@@ -1,3 +1,4 @@
+# Recursos necesarios para el proyecto
 
 1. **Instalación de JSONFox**:
 
@@ -43,7 +44,7 @@
         ```
 
 
-¡Claro! Vamos a realizar una consulta SQL y convertir los resultados en un objeto JSON utilizando **JSONFox** en **Visual FoxPro**. A continuación, te muestro cómo hacerlo paso a paso:
+Vamos a realizar una consulta SQL y convertir los resultados en un objeto JSON utilizando **JSONFox** en **Visual FoxPro**. A continuación, te muestro cómo hacerlo paso a paso:
 
 1. **Consulta SQL y almacenamiento en un cursor**:
    - Supongamos que tienes una tabla llamada `miTabla` con datos que deseas consultar. Ejecuta una consulta SQL para obtener los datos y almacénalos en un cursor. Por ejemplo:
@@ -151,30 +152,30 @@ Espero que esto te sea de ayuda. 😊
 
 
 ```sh
-* Cambiar el área de trabajo activa al cursor cResultado
+# Cambiar el área de trabajo activa al cursor cResultado
 SELECT cResultado
 
-* Agregar registros desde otro cursor o tabla al cursor cResultado
+# Agregar registros desde otro cursor o tabla al cursor cResultado
 APPEND FROM otraTabla
 
-* Copiar los registros del cursor cResultado a otro cursor o tabla
+# Copiar los registros del cursor cResultado a otro cursor o tabla
 COPY TO otraTabla
 
-* Marcar registros para eliminación
+# Marcar registros para eliminación
 DELETE FOR edad > 30
 
-* Anular la eliminación de registros
+# Anular la eliminación de registros
 RECALL ALL
 
-* Reemplazar los valores de los campos en los registros
+# Reemplazar los valores de los campos en los registros
 REPLACE ALL nombre WITH "Nuevo nombre"
 
-* Recorrer los registros del cursor
+# Recorrer los registros del cursor
 SCAN
     ? nombre, edad
 ENDSCAN
 
-* Buscar un registro en el cursor
+# Buscar un registro en el cursor
 SEEK "Juan" IN nombre
 ```
 
@@ -183,34 +184,39 @@ SEEK "Juan" IN nombre
 + Puedes usar la función RECCOUNT() para obtener el número de registros en el cursor cResultado y guardar ese valor en una variable size. Aquí te dejo un ejemplo de cómo podrías hacerlo:
 
 ```sh
-* Cambiar el área de trabajo activa al cursor cResultado
+# Cambiar el área de trabajo activa al cursor cResultado
 SELECT cResultado
 
-* Obtener el número de registros y guardarlo en la variable size
+# Obtener el número de registros y guardarlo en la variable size
 LOCAL size
 size = RECCOUNT()
 
-* Ahora, la variable size contiene el número de registros en cResultado
+# Ahora, la variable size contiene el número de registros en cResultado
 ? size
 ```
 
 ---
 
+### Para eliminar un cursor
+
 + Para eliminar un cursor en Visual FoxPro, puedes usar el comando USE con la opción IN seguido del nombre del cursor. Aquí te dejo un ejemplo de cómo podrías hacerlo:
 
 ```sh
 
-* Cambiar el área de trabajo activa al cursor cResultado
+# Cambiar el área de trabajo activa al cursor cResultado
 SELECT cResultado
 
-* Cerrar el cursor
+# Cerrar el cursor
 USE IN cResultado
 
 ```
 
 ---
 
-* Crear la tabla miTabla
+**Crear la tabla miTabla**
+
+Esta tabla nos permite hacer una prueba del uso de cursores 
+
 
 ```sh
 SET DEFAULT TO C:\Users\maxed\Videos\FoxPro\JSONFox\src\
@@ -275,22 +281,22 @@ SKIP
 ENDDO
 ```
 
-
+### Para insertar un nuevo registro
 
 + Para insertar un nuevo registro en el cursor cResultado, puedes usar el comando APPEND BLANK para agregar un nuevo registro vacío y luego usar el comando REPLACE para asignar valores a los campos de ese registro. Aquí te dejo un ejemplo de cómo podrías hacerlo:
 
 ```sh
 
-* Cambiar el área de trabajo activa al cursor cResultado
+# Cambiar el área de trabajo activa al cursor cResultado
 SELECT cResultado
 
-* Agregar un nuevo registro vacío
+# Agregar un nuevo registro vacío
 APPEND BLANK
 
-* Asignar valores a los campos del nuevo registro
+# Asignar valores a los campos del nuevo registro
 REPLACE nombre WITH "Nuevo nombre", edad WITH 30
 
-* Ahora, cResultado tiene un registro más con nombre "Nuevo nombre" y edad 30
+# Ahora, cResultado tiene un registro más con nombre "Nuevo nombre" y edad 30
 
 ```
 
@@ -313,7 +319,7 @@ ENDIF
 
 ### ITERATIVOS
 
-En Visual FoxPro 9, hay varias estructuras iterativas que puedes usar, incluyendo `FOR ... ENDFOR`, `DO WHILE ... ENDDO`, `SCAN ... ENDSCAN` y `LOOP ... ENDLOOP`. Aquí te dejo un ejemplo para cada una:
+En Visual FoxPro 9, hay varias estructuras iterativas que puedes usar, incluyendo `FOR ... ENDFOR`, `DO WHILE ... ENDDO`, `SCAN ... ENDSCAN` y `LOOP ... ENDLOOP`. Aquí dejo un ejemplo:
 
 1. **FOR ... ENDFOR**
 
@@ -338,6 +344,7 @@ ENDDO
 
 ```sh
 * Supongamos que tienes una tabla llamada 'miTabla' con un campo llamado 'miCampo'
+
 USE miTabla
 SCAN
     ? "Valor de miCampo: ", miCampo
@@ -363,43 +370,39 @@ Espero que estos ejemplos te ayuden a entender cómo usar las estructuras iterat
 --------
 
 ### Funciones 
-Por supuesto, aquí tienes un ejemplo de cómo puedes definir y usar métodos y funciones en Visual FoxPro 9:
+
++ Aquí un ejemplo de cómo puedes definir y usar métodos y funciones en Visual FoxPro 9
+
 
 ```sh
-* Definición de una clase con un método
+# Definición de una clase con un método
 DEFINE CLASS MiClase AS Custom
     PROCEDURE MiMetodo
         ? "Este es un método de MiClase."
     ENDPROC
 ENDDEFINE
 
-* Creación de una instancia de la clase y uso del método
+# Creación de una instancia de la clase y uso del método
 oMiObjeto = CREATEOBJECT("MiClase")
 oMiObjeto.MiMetodo()
 ```
 
 ```sh
 
-* Definición de una función
+# Definición de una función
 FUNCTION MiFuncion
     LPARAMETERS lcMensaje
     ? "Mensaje: ", lcMensaje
     RETURN .T.
 ENDFUNC
 
-* Uso de la función
+# Uso de la función
 llResultado = MiFuncion("Este es un mensaje.")
 ```
 
 En este código, primero se define una clase `MiClase` con un método `MiMetodo`. Luego, se crea una instancia de `MiClase` y se llama a `MiMetodo`.
 
 Después, se define una función `MiFuncion` que toma un parámetro `lcMensaje` y muestra un mensaje. Finalmente, se llama a `MiFuncion` con un mensaje como argumento.
-
-Espero que este ejemplo te ayude a entender cómo usar métodos y funciones en Visual FoxPro 9. Si tienes más preguntas o necesitas más ayuda, no dudes en preguntar. ¡Estoy aquí para ayudar! 😊
-
-
-
-
 
 ```sh 
 
@@ -427,8 +430,9 @@ ENDFUNC
 lcJson = CreateObjetoJson();
 ?lcJson
 
-* Supongamos que tienes tres cursores: cursorCabecera, cursorItems y cursorCliente
-* Estos cursores se llenan después de realizar las consultas SQL correspondientes
+# Supongamos que tienes tres cursores: cursorCabecera, cursorItems y cursorCliente
+# Estos cursores se llenan después de realizar las consultas SQL correspondientes
+
 Do rModels + "Cabecera.prg"
 Do rModels + "ItemFactura.prg"
 Do rModels + "Cliente.prg"
