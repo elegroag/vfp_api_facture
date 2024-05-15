@@ -1,0 +1,552 @@
+{
+    "Solicitud": {
+        "Nonce": "d83c9f7e-e038-447e-a5b3-c1380634f39e",
+        "Suscriptor": "7630a166-23d0-4ef2-888f-13e759d68de5"
+    },
+    "DocumentoEquivalente": {
+        "Cabecera": {
+            "DoceManejaPeriodos": 1,
+            "DoceConsecutivo": "sample string 2",
+            "DoceFecha": "2024-05-14T20:09:15.4104355-05:00",
+            "DocePrefijo": "sample string 3",
+            "DoceCantidadItems": 4,
+            "DoceLineasWhatsApp": "sample string 5",
+            "AmbdCodigo": 6,
+            "TipoCodigo": "sample string 7",
+            "DoetCodigo": "sample string 8",
+            "MoneCodigo": "sample string 9",
+            "RefvNumero": "sample string 10",
+            "DoceReferenciaPago": "sample string 11",
+            "EnviarSetPruebas": 12
+        },
+        "PagosFactura": {
+            "ForpCodigo": 1,
+            "DoepFechaVencimiento": "2024-05-14T20:09:15.4104355-05:00",
+            "Medios": [
+                {
+                    "DempCodigo": "sample string 1",
+                    "DempDescripcion": "sample string 2"
+                },
+                {
+                    "DempCodigo": "sample string 1",
+                    "DempDescripcion": "sample string 2"
+                }
+            ]
+        },
+        "Observaciones": [
+            "sample string 1",
+            "sample string 2"
+        ],
+        "Extensiones": {
+            "ExtensionesPOS": {
+                "FabricanteSoftware": {
+                    "NombreApellido": "sample string 1",
+                    "RazonSocial": "sample string 2",
+                    "NombreSoftware": "sample string 3",
+                    "NIT": "sample string 4"
+                },
+                "BeneficiosComprador": {
+                    "Codigo": "sample string 1",
+                    "NombresApellidos": "sample string 2",
+                    "Puntos": "sample string 3"
+                },
+                "InformacionCajaVenta": {
+                    "PlacaCaja": "sample string 1",
+                    "UbicaciónCaja": "sample string 2",
+                    "Cajero": "sample string 3",
+                    "TipoCaja": "sample string 4",
+                    "CodigoVenta": "sample string 5",
+                    "SubTotal": "sample string 6"
+                }
+            },
+            "EstensionesDocumentoExtracto": {
+                "FabricanteSoftware": {
+                    "NombreApellido": "sample string 1",
+                    "RazonSocial": "sample string 2",
+                    "NombreSoftware": "sample string 3",
+                    "NIT": "sample string 4"
+                }
+            },
+            "EstensionesBolsaValores": {
+                "InformacionDelFabricanteDelSoftware": {
+                    "NombreApellido": "sample string 1",
+                    "RazonSocial": "sample string 2",
+                    "NombreSoftware": "sample string 3",
+                    "NIT": "sample string 4"
+                },
+                "InformacionAdicionalDocumento": {
+                    "Consecutivo": "sample string 1",
+                    "FechaCumplimiento": "2024-05-14T20:09:15.4104355-05:00"
+                },
+                "MontoOperacion": {
+                    "CantidadNominal": 1.0,
+                    "PrecioRegistro": 2.0,
+                    "MontoDeRendimientos": 3.0,
+                    "Valor": 4.0,
+                    "PorcentajeComision": 5.0
+                }
+            },
+            "ExtensionesBoletaCine": {
+                "InformacionDelFabricanteDelSoftware": {
+                    "NombreApellido": "sample string 1",
+                    "RazonSocial": "sample string 2",
+                    "NombreSoftware": "sample string 3",
+                    "NIT": "sample string 4"
+                },
+                "InformacionBoleta": {
+                    "NombreTeatro": "sample string 1",
+                    "DireccionTeatro": "sample string 2",
+                    "NombreSala": "sample string 3",
+                    "NumeroSilla": "sample string 4",
+                    "NombreFuncion": "sample string 5",
+                    "Ubicacion": "sample string 6",
+                    "FechaHoraFuncion": "2024-05-14T20:09:15.4104355-05:00"
+                }
+            }
+        },
+        "ordenDocumento": {
+            "DeorNumeroOrden": "sample string 1",
+            "DeorTipoOrden": "sample string 2",
+            "DeorFechaOrden": "2024-05-14T20:09:15.4104355-05:00",
+            "DeorDocumentoReferencia": "sample string 3"
+        },
+        "AdquirienteFactura": {
+            "CalcularDv": 1,
+            "DoeaEsResponsable": 1,
+            "DoeaEsnacional": 2,
+            "DoeaDocumento": "sample string 3",
+            "DoeaDiv": "sample string 4",
+            "DoeaRazonSocial": "sample string 5",
+            "DoeaNombreCiudad": "sample string 6",
+            "DoeaNombreDepartamento": "sample string 7",
+            "DoeaPais": "sample string 8",
+            "DoeaDireccion": "sample string 9",
+            "DoeaObligaciones": "sample string 10",
+            "DoeaNombres": "sample string 11",
+            "DoeaApellidos": "sample string 12",
+            "DoeaOtrosNombres": "sample string 13",
+            "DoeaCorreo": "sample string 14",
+            "DoeaTelefono": "sample string 15",
+            "TiotCodigo": 16,
+            "CopcCodigo": "sample string 17",
+            "RegCodigo": "sample string 18",
+            "TidtCodigo": "sample string 19",
+            "DoeaManejoAdjuntos": 20,
+            "DoeaProcedencia": "sample string 21"
+        },
+        "adquirienteContacto": {
+            "DeacNombre": "sample string 1",
+            "DeacTelefono": "sample string 2",
+            "DeacCorreo": "sample string 3",
+            "DeacCodigo": "sample string 4"
+        },
+        "AnticiposFactura": [
+            {
+                "DoeaItem": 1,
+                "DoeaValor": 2.0,
+                "DoeaFechaRecibo": "2024-05-14T20:09:15.4104355-05:00",
+                "DoeaFechaRealizado": "2024-05-14T20:09:15.4104355-05:00",
+                "DoeaObsernaciones": "sample string 3"
+            },
+            {
+                "DoeaItem": 1,
+                "DoeaValor": 2.0,
+                "DoeaFechaRecibo": "2024-05-14T20:09:15.4104355-05:00",
+                "DoeaFechaRealizado": "2024-05-14T20:09:15.4104355-05:00",
+                "DoeaObsernaciones": "sample string 3"
+            }
+        ],
+        "CargosDescuentosFactura": [
+            {
+                "DecdItem": 1,
+                "DecdEsdescuento": 2,
+                "DecdObservacion": "sample string 3",
+                "DecdPorcentaje": 4.0,
+                "DecdBase": 5.0,
+                "DecdValor": 6.0,
+                "CotdCodigo": "sample string 7"
+            },
+            {
+                "DecdItem": 1,
+                "DecdEsdescuento": 2,
+                "DecdObservacion": "sample string 3",
+                "DecdPorcentaje": 4.0,
+                "DecdBase": 5.0,
+                "DecdValor": 6.0,
+                "CotdCodigo": "sample string 7"
+            }
+        ],
+        "ImpuestosFactura": [
+            {
+                "DoeiTotal": 1.0,
+                "DoeiEsPorcentual": 2,
+                "ImpuCodigo": "sample string 3",
+                "Detalle": [
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    },
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    }
+                ]
+            },
+            {
+                "DoeiTotal": 1.0,
+                "DoeiEsPorcentual": 2,
+                "ImpuCodigo": "sample string 3",
+                "Detalle": [
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    },
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    }
+                ]
+            }
+        ],
+        "ImpuestosRetenidosFactura": [
+            {
+                "DoeiTotal": 1.0,
+                "DoeiEsPorcentual": 2,
+                "ImpuCodigo": "sample string 3",
+                "Detalle": [
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    },
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    }
+                ]
+            },
+            {
+                "DoeiTotal": 1.0,
+                "DoeiEsPorcentual": 2,
+                "ImpuCodigo": "sample string 3",
+                "Detalle": [
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    },
+                    {
+                        "DediBase": 1.0,
+                        "DediValor": 2.0,
+                        "DediFactor": 3.0,
+                        "UnimCodigo": "sample string 4"
+                    }
+                ]
+            }
+        ],
+        "DocumentoReferencia": {
+            "DedrDocumentoReferencia": "sample string 1",
+            "DedrFecha": "2024-05-14T20:09:15.4104355-05:00",
+            "CodigoConcepto": "sample string 2"
+        },
+        "DetalleFactura": [
+            {
+                "DoeiItem": 1,
+                "DoeiCodigo": "sample string 2",
+                "DoeiDescripcion": "sample string 3",
+                "DoeiMarca": "sample string 4",
+                "DoeiModelo": "sample string 5",
+                "DoeiObservacion": "sample string 6",
+                "DoeiDatosVendedor": "sample string 7",
+                "DoeiCantidad": 8.0,
+                "DoeiCantidadEmpaque": 9.0,
+                "DoeiEsObsequio": 10,
+                "DoeiPrecioUnitario": 11.0,
+                "DoeiPrecioReferencia": 12.0,
+                "DoeiValor": 13.0,
+                "DoeiTotalDescuentos": 14.0,
+                "DoeiTotalCargos": 15.0,
+                "DoeiTotalImpuestos": 16.0,
+                "DoeiBase": 17.0,
+                "DoeiSubtotal": 18.0,
+                "TicpCodigo": "sample string 19",
+                "UnimCodigo": "sample string 20",
+                "CtprCodigo": "sample string 21",
+                "DoeiNumeroRadicadoRemesa": "sample string 22",
+                "DoeiNumeroConsecutivoRemesa": "sample string 23",
+                "DoeiValorFleteRemesa": 24,
+                "DoeiCantidadFleteRemesa": 25,
+                "DoeiUnimCodigoRemesa": "sample string 26",
+                "ImpuestosLinea": [
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    },
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    }
+                ],
+                "ImpuestosRetenidosLinea": [
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    },
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    }
+                ],
+                "CargosDescuentosLinea": [
+                    {
+                        "DecdItem": 1,
+                        "DecdEsdescuento": 2,
+                        "DecdObservacion": "sample string 3",
+                        "DecdPorcentaje": 4.0,
+                        "DecdBase": 5.0,
+                        "DecdValor": 6.0,
+                        "CotdCodigo": "sample string 7"
+                    },
+                    {
+                        "DecdItem": 1,
+                        "DecdEsdescuento": 2,
+                        "DecdObservacion": "sample string 3",
+                        "DecdPorcentaje": 4.0,
+                        "DecdBase": 5.0,
+                        "DecdValor": 6.0,
+                        "CotdCodigo": "sample string 7"
+                    }
+                ]
+            },
+            {
+                "DoeiItem": 1,
+                "DoeiCodigo": "sample string 2",
+                "DoeiDescripcion": "sample string 3",
+                "DoeiMarca": "sample string 4",
+                "DoeiModelo": "sample string 5",
+                "DoeiObservacion": "sample string 6",
+                "DoeiDatosVendedor": "sample string 7",
+                "DoeiCantidad": 8.0,
+                "DoeiCantidadEmpaque": 9.0,
+                "DoeiEsObsequio": 10,
+                "DoeiPrecioUnitario": 11.0,
+                "DoeiPrecioReferencia": 12.0,
+                "DoeiValor": 13.0,
+                "DoeiTotalDescuentos": 14.0,
+                "DoeiTotalCargos": 15.0,
+                "DoeiTotalImpuestos": 16.0,
+                "DoeiBase": 17.0,
+                "DoeiSubtotal": 18.0,
+                "TicpCodigo": "sample string 19",
+                "UnimCodigo": "sample string 20",
+                "CtprCodigo": "sample string 21",
+                "DoeiNumeroRadicadoRemesa": "sample string 22",
+                "DoeiNumeroConsecutivoRemesa": "sample string 23",
+                "DoeiValorFleteRemesa": 24,
+                "DoeiCantidadFleteRemesa": 25,
+                "DoeiUnimCodigoRemesa": "sample string 26",
+                "ImpuestosLinea": [
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    },
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    }
+                ],
+                "ImpuestosRetenidosLinea": [
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    },
+                    {
+                        "DoeiTotal": 1.0,
+                        "DoeiEsPorcentual": 2,
+                        "ImpuCodigo": "sample string 3",
+                        "Detalle": [
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            },
+                            {
+                                "DediBase": 1.0,
+                                "DediValor": 2.0,
+                                "DediFactor": 3.0,
+                                "UnimCodigo": "sample string 4"
+                            }
+                        ]
+                    }
+                ],
+                "CargosDescuentosLinea": [
+                    {
+                        "DecdItem": 1,
+                        "DecdEsdescuento": 2,
+                        "DecdObservacion": "sample string 3",
+                        "DecdPorcentaje": 4.0,
+                        "DecdBase": 5.0,
+                        "DecdValor": 6.0,
+                        "CotdCodigo": "sample string 7"
+                    },
+                    {
+                        "DecdItem": 1,
+                        "DecdEsdescuento": 2,
+                        "DecdObservacion": "sample string 3",
+                        "DecdPorcentaje": 4.0,
+                        "DecdBase": 5.0,
+                        "DecdValor": 6.0,
+                        "CotdCodigo": "sample string 7"
+                    }
+                ]
+            }
+        ],
+        "PeriodoFactura": {
+            "DoepFechaInicial": "2024-05-14T20:09:15.4104355-05:00",
+            "DoepFechaFinal": "2024-05-14T20:09:15.4104355-05:00"
+        },
+        "FacturaContingencia": {
+            "DefcConsecutivo": "sample string 1",
+            "DefcFecha": "2024-05-14T20:09:15.4104355-05:00"
+        },
+        "ResumenImpuestosFactura": {
+            "DeriTotalIva": 1.0,
+            "DeriTotalConsumo": 2.0,
+            "DeriTotalIca": 3.0
+        },
+        "TasaCambioFactura": {
+            "DetcTrm": 1.0,
+            "DetcFecha": "2024-05-14T20:09:15.4104355-05:00",
+            "MoneCodigo": "sample string 2"
+        },
+        "TotalesFactura": {
+            "DoetSubtotal": 1.0,
+            "DoetBase": 2.0,
+            "DoetTotalImpuestos": 3.0,
+            "DoetSubtotalMasImpuestos": 4.0,
+            "DoetTotalDescuentos": 5.0,
+            "DoetTotalcargos": 6.0,
+            "DoetTotalAnticipos": 7.0,
+            "DoetAjusteAlPeso": 8.0,
+            "DoetTotalDocumento": 9.0
+        }
+    }
+}
