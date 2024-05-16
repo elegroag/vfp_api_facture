@@ -3,7 +3,7 @@
 SET PROCEDURE TO ReplaceString ADDITIVE
 
 DEFINE CLASS ReplaceString AS Custom
-    PROTECTED loSer = .NULL.
+    loSer = .NULL.
 
     FUNCTION Init
         DO wwJsonSerializer
@@ -137,7 +137,11 @@ DEFINE CLASS ReplaceString AS Custom
             '{"name":"detallefactura", "value": "DetalleFactura"},'+;
             '{"name":"adquirientefactura", "value": "AdquirienteFactura"},'+;
             '{"name":"totalesfactura", "value": "TotalesFactura"},'+;
-            '{"name":"adquirientecontacto", "value": "adquirienteContacto"}'+;
+            '{"name":"adquirientecontacto", "value": "adquirienteContacto"},'+;
+            '{"name":"nonce","value": "Nonce"},'+;
+            '{"name":"suscriptor","value": "Suscriptor"},'+;
+            '{"name":"doeadiv","value": "DoeaDiv"},'+;
+            '{"name":"impuestoslinea","value": "ImpuestosLinea"}'+;            
             ']'
 
         objJson = THIS.loSer.Deserialize(paramsReplace)

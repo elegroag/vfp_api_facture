@@ -7,20 +7,16 @@ DEFINE CLASS Documento AS Custom
     DocumentoEquivalente = .NULL.
 
     PROCEDURE Init
-        THIS.Solicitud = CREATEOBJECT("EMPTY")
         THIS.DocumentoEquivalente = CREATEOBJECT("EMPTY")
     ENDPROC
 
-    PROCEDURE setNonceSolicitud
-        LPARAMETERS valor
-        ADDPROPERTY(THIS.Solicitud, "Nonce", valor)
+    PROCEDURE setParams
+        LPARAMETERS objeto
+        THIS.Solicitud = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(THIS.Solicitud, "Nonce", objeto.nonce)
+        ADDPROPERTY(THIS.Solicitud, "Suscriptor", objeto.suscriptor)
     ENDPROC
     
-    PROCEDURE setSuscriptorSolicitud
-        LPARAMETERS suscriptor
-        ADDPROPERTY(THIS.Solicitud, "Suscriptor", suscriptor)
-    ENDPROC
-
     PROCEDURE addDocumentoEquivalente
         LPARAMETERS oClave, objeto
         ADDPROPERTY(THIS.DocumentoEquivalente, oClave, objeto)
@@ -28,7 +24,7 @@ DEFINE CLASS Documento AS Custom
 ENDDEFINE
 
 DEFINE CLASS ServicioPrueba AS Custom
-    PROTECTED loSer = .NULL.
+    loSer = .NULL.
 
     FUNCTION Init
         DO wwJsonSerializer
@@ -121,11 +117,19 @@ DEFINE CLASS ServicioPrueba AS Custom
 
     FUNCTION ItemImpuesto
         LPARAMETERS oItem
+
+        oDetalle = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(oDetalle, "DediBase",oItem.dedibase) 
+        ADDPROPERTY(oDetalle, "DediValor",oItem.dedivalor) 
+        ADDPROPERTY(oDetalle, "DediFactor",oItem.dedifactor) 
+        ADDPROPERTY(oDetalle, "UnimCodigo",oItem.unimcodigo) 
+
         cImpuesto = CREATEOBJECT("EMPTY")
         ADDPROPERTY(cImpuesto, "DoeiTotal", oItem.doeitotal)
         ADDPROPERTY(cImpuesto, "DoeiEsPorcentual", oItem.doeiesporcentual)
         ADDPROPERTY(cImpuesto, "ImpuCodigo", oItem.impucodigo)
-        ADDPROPERTY(cImpuesto, "Detalle", '{"DediBase":'+oItem.dedibase+',"DediValor":'+oItem.dedivalor+',"DediFactor":'+ oItem.dedifactor+',"UnimCodigo":'+oItem.unimcodigo+'}')
+        ADDPROPERTY(cImpuesto, "Detalle", oDetalle)
+        
         RETURN cImpuesto
     ENDFUNC
 
@@ -141,7 +145,6 @@ DEFINE CLASS ServicioPrueba AS Custom
     FUNCTION DetallesFactura
         LPARAMETERS oDetalles, oImpuestos
         DetalleFactura = CREATEOBJECT("Collection")
-
         FOR i = 1 TO oDetalles.Count
             oItem = oDetalles.Item(i)
             cDetalle = CREATEOBJECT("EMPTY")
@@ -174,7 +177,7 @@ DEFINE CLASS ServicioPrueba AS Custom
 
             oImpuestoLinea = CREATEOBJECT("Collection")
             FOR j = 1 TO oImpuestos.Count
-                oImpuestoLinea.Add(ItemImpuesto(oImpuestos.Item(j)))
+                oImpuestoLinea.Add(THIS.ItemImpuesto(oImpuestos.Item(j)))
             ENDFOR
             ADDPROPERTY(cDetalle, "ImpuestosLinea", oImpuestoLinea)
             
@@ -221,7 +224,7 @@ DEFINE CLASS ServicioPrueba AS Custom
         ADDPROPERTY(oFabricanteSoftware, "NombreApellido", objeto.nombreapellido)
         ADDPROPERTY(oFabricanteSoftware, "RazonSocial", objeto.razonsocial)
         ADDPROPERTY(oFabricanteSoftware, "NombreSoftware", objeto.nombresoftware)
-        ADDPROPERTY(oFabricanteSoftware, "NIT", objeto.NIT)
+        ADDPROPERTY(oFabricanteSoftware, "NIT", objeto.nit)
 
         oBeneficiosComprador = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oBeneficiosComprador, "Codigo", objeto.codigo)
@@ -243,16 +246,35 @@ DEFINE CLASS ServicioPrueba AS Custom
 
         oExtension = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oExtension, "ExtensionesPOS", oExtensionesPOS)
-        ADDPROPERTY(oExtension, "EstensionesDocumentoExtracto", NULL)
-        ADDPROPERTY(oExtension, "EstensionesBolsaValores", NULL)
-        ADDPROPERTY(oExtension, "ExtensionesBoletaCine", NULL)
+        ADDPROPERTY(oExtension, "EstensionesDocumentoExtracto", .NULL.)
+        ADDPROPERTY(oExtension, "EstensionesBolsaValores", .NULL.)
+        ADDPROPERTY(oExtension, "ExtensionesBoletaCine", .NULL.)
         RETURN oExtension
     ENDFUNC
 
     FUNCTION QueryStatus()
         LOCAL strJson, objJson 
         
-        SELECT * FROM status WHERE id=1 INTO CURSOR cStatus
+        SELECT ;
+        '' AS nonce, ;
+        '' AS suscriptor, ;
+        '' AS nombreapellido, ;
+        '' AS razonsocial, ;
+        '' AS nombresoftware, ;
+        '' AS nit, ;
+        '' AS codigo, ;
+        '' AS nombresapellidos, ;
+        '' AS puntos, ;
+        '' AS placacaja, ;
+        '' AS ubicacioncaja, ;
+        '' AS cajero, ;
+        '' AS tipocaja, ;
+        '' AS codigoventa, ;
+        '' AS subtotal ;
+        FROM status ;
+        WHERE id=1 ; 
+        INTO CURSOR cStatus
+        
         strJson = THIS.loSer.Serialize("cursor:cStatus")
         objJson = THIS.loSer.Deserialize(strJson)
         USE IN cStatus
@@ -352,34 +374,35 @@ DEFINE CLASS ServicioPrueba AS Custom
 
     FUNCTION QueryDetalle(marca, numero)
         LOCAL strJson, objJson 
+        
         SELECT ; 
-            '' AS doeiitem, ;
-            '' AS doeicodigo, ;
-            '' AS doeidescripcion, ;
-            '' AS doeimarca, ;
-            '' AS doeimodelo, ;
-            '' AS doeiobservacion, ;
-            '' AS doeidatosvendedor, ;
-            '' AS doeicantidad, ;
-            '' AS doeicantidadempaque, ;
-            '' AS doeiesobsequio, ;
-            '' AS doeipreciounitario, ;
-            '' AS doeiprecioreferencia, ;
-            '' AS doeivalor, ;
-            '' AS doeitotaldescuentos, ;
-            '' AS doeitotalcargos, ;
-            '' AS doeitotalimpuestos, ;
-            '' AS doeibase, ;
-            '' AS doeisubtotal, ;
-            '' AS ticpcodigo, ;
-            '' AS unimcodigo, ;
-            '' AS ctprcodigo, ;
-            '' AS doeinumeroradicadoremesa, ;
-            '' AS doeinumeroconsecutivoremesa, ;
-            '' AS doeivalorfleteremesa, ;
-            '' AS doeicantidadfleteremesa, ;
-            '' AS doeiunimcodigoremesa ;
-        FROM ventas_i WHERE marca=?marca AND numero=?numero INTO CURSOR cDetalles
+        '' AS doeiitem, ;
+        '' AS doeicodigo, ;
+        '' AS doeidescripcion, ;
+        '' AS doeimarca, ;
+        '' AS doeimodelo, ;
+        '' AS doeiobservacion, ;
+        '' AS doeidatosvendedor, ;
+        '' AS doeicantidad, ;
+        '' AS doeicantidadempaque, ;
+        '' AS doeiesobsequio, ;
+        '' AS doeipreciounitario, ;
+        '' AS doeiprecioreferencia, ;
+        '' AS doeivalor, ;
+        '' AS doeitotaldescuentos, ;
+        '' AS doeitotalcargos, ;
+        '' AS doeitotalimpuestos, ;
+        '' AS doeibase, ;
+        '' AS doeisubtotal, ;
+        '' AS ticpcodigo, ;
+        '' AS unimcodigo, ;
+        '' AS ctprcodigo, ;
+        '' AS doeinumeroradicadoremesa, ;
+        '' AS doeinumeroconsecutivoremesa, ;
+        '' AS doeivalorfleteremesa, ;
+        '' AS doeicantidadfleteremesa, ;
+        '' AS doeiunimcodigoremesa ; 
+        FROM fventas WHERE marca=?marca AND numero=?numero INTO CURSOR cDetalles
 
         strJson = THIS.loSer.Serialize("cursor:cDetalles")
         objJson = THIS.loSer.Deserialize(strJson)
@@ -387,10 +410,25 @@ DEFINE CLASS ServicioPrueba AS Custom
         RETURN objJson.rows
     ENDFUNC
 
-    FUNCTION QueryImpuestos(marca, numero, factura)
+    FUNCTION QueryImpuestos(marca, numero)
         LOCAL strJson, objJson
 
-        SELECT * FROM ventas_i WHERE id=1 INTO CURSOR cImpuestos
+        SELECT ;
+        '' AS deritotaliva, ;
+        '' AS deritotalconsumo, ;
+        '' AS deritotalica, ;
+        '' AS doeitotal, ;
+        '' AS doeiesporcentual, ;
+        '' AS impucodigo, ;
+        '' AS detalle, ;
+        '' AS dedibase, ;
+        '' AS dedivalor, ;
+        '' AS dedifactor, ;
+        '' AS unimcodigo ;
+        FROM fventas ; 
+        WHERE marca=?marca AND numero=?numero; 
+        INTO CURSOR cImpuestos 
+        
         strJson = THIS.loSer.Serialize("cursor:cImpuestos")
         objJson = THIS.loSer.Deserialize(strJson)
         USE IN cImpuestos
@@ -404,8 +442,9 @@ DEFINE CLASS ServicioPrueba AS Custom
     ENDFUNC
 
     FUNCTION ReplaceStr(strJson)
+        LOCAL sFieldValue
         replaceStr = CREATEOBJECT('ReplaceString')
-        replaceStr.Remplazar(strJson)
+        sFieldValue = replaceStr.Remplazar(strJson)
         ? sFieldValue
         RETURN sFieldValue
     ENDFUNC
@@ -416,13 +455,11 @@ DEFINE CLASS ServicioPrueba AS Custom
         mStatus = THIS.QueryStatus() 
         mVenta = THIS.QueryVentas(marca, numero)
         mCliente = THIS.QueryCliente(mVenta.cliente)
-
-        *!*	 mDetalle = QueryDetalle(marca, numero)
-        *!*	 mImpuestos = QueryImpuestos()
+        mDetalle = THIS.QueryDetalle(marca, numero)
+        mImpuestos = THIS.QueryImpuestos(marca, numero)
 
         oDocumento = CREATEOBJECT('Documento')
-        oDocumento.setNonceSolicitud("XXXXX")
-        oDocumento.setSuscriptorSolicitud("Sus EDWIN Cript")
+        oDocumento.setParams(mStatus)
         
         oCabecera = THIS.Cabecera(mVenta)
         oDocumento.AddDocumentoEquivalente("Cabecera", oCabecera)
@@ -430,14 +467,14 @@ DEFINE CLASS ServicioPrueba AS Custom
         oPeriodoFactura = THIS.PeriodoFactura(mVenta)
         oDocumento.AddDocumentoEquivalente("PeriodoFactura", oPeriodoFactura)
 
-        *!*	 oExtensiones = Extensiones(mVenta)
-        *!*	 oDocumento.AddDocumentoEquivalente("Extensiones", oExtensiones)
-
-        *!*	 oResumenImpuestosFactura = ResumenImpuestosFactura(mImpuestos)
-        *!*	 oDocumento.AddDocumentoEquivalente("ResumenImpuestosFactura", oResumenImpuestosFactura)
+        oExtensiones = THIS.Extensiones(mStatus)
+        oDocumento.AddDocumentoEquivalente("Extensiones", oExtensiones)
         
-        *!*	 oDetalleFactura = DetallesFactura(mDetalle, mImpuestos)
-        *!*	 oDocumento.AddDocumentoEquivalente("DetalleFactura", oDetalleFactura)
+        oResumenImpuestosFactura = THIS.ResumenImpuestosFactura(mImpuestos[1])
+        oDocumento.AddDocumentoEquivalente("ResumenImpuestosFactura", oResumenImpuestosFactura)
+        
+        oDetalleFactura = THIS.DetallesFactura(mDetalle, mImpuestos)
+        oDocumento.AddDocumentoEquivalente("DetalleFactura", oDetalleFactura)
 
         oPagosFactura = THIS.PagosFactura(mVenta)
         oDocumento.AddDocumentoEquivalente("PagosFactura", oPagosFactura)
