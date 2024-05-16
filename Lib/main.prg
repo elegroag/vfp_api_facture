@@ -1,6 +1,17 @@
 PARAMETERS marca, numero
 SET DEFAULT TO C:\Users\edwin\Documents\VisualFoxPro\vfp_api_facture
-SET PATH TO C:\Users\edwin\Documents\VisualFoxPro\vfp_api_facture\;datos\;Fox\;Lib\
+
+PUBLIC PATHTRAB, PATHLIB, PATHDATOS, PATFOX AS CHARACTER
+PATHTRAB="C:\Users\edwin\Documents\VisualFoxPro\vfp_api_facture"
+PATHDATOS=PATHTRAB+"\datos\"
+PATHLIB=PATHTRAB+"\Lib\"
+PATFOX=PATHTRAB+"\Fox\"
+SET DATE DMY 
+SET CENTURY ON 
+SET EXCLUSIVE OFF 
+SET DELETED ON 
+SET BELL OFF 
+CLEAR
 
 IF TYPE("marca") # "U"
 	marca = 3		

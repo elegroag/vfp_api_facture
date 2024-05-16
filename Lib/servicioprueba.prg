@@ -289,7 +289,7 @@ DEFINE CLASS ServicioPrueba AS Custom
         * (marca,numero,factura,fecha,hora,tipo,vence,cliente,items,valor,valor2,efectivo2,efectivo,credito,cheque,tarjeta,bono,saldo,codtar,codban,vendedor,nota,separado,bolsas,iconsumo,estado,dc_marca,dc_numero,pagado,cambio,banco,numres,valida);
         * VALUES(6, 2897, 1,'13/05/2024','12:12:00','V','13/05/2024','222222222222', 1, 50000, 50000, 120000, 120000, 0, 0, 0, 0, 0,'','',1,'VENTA 1', 0, 0, 0, 'A', 0, 0, 1, 20000, '', '', '1')
 
-        SELECT ;
+        SELECT fventas.*, ;
             '' AS docemanejaperiodos, ;
             '' AS doceconsecutivo, ;
             'FES' As doceprefijo, ;
@@ -322,9 +322,8 @@ DEFINE CLASS ServicioPrueba AS Custom
             '' AS doettotalcargos, ; 
             '' AS doettotalanticipos, ;
             '' AS doetajustealpeso, ;
-            '' AS doettotaldocumento , ; 
-            cliente ;
-        FROM fventas WHERE marca=?marca AND numero=?numero INTO CURSOR cVentas
+            '' AS doettotaldocumento ;
+        FROM fventas WHERE fventas.marca=?marca AND fventas.numero=?numero INTO CURSOR cVentas
         
         strJson = THIS.loSer.Serialize("cursor:cVentas")
         objJson = THIS.loSer.Deserialize(strJson)
