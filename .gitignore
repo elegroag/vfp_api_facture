@@ -474,3 +474,4 @@ FodyWeavers.xsd
 *.ERR
 *.BAK
 datos/
+*.txt
