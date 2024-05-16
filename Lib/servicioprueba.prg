@@ -1,5 +1,4 @@
 #INCLUDE foxpro.h
-
 SET PROCEDURE TO ServicioPrueba ADDITIVE
 
 DEFINE CLASS Documento AS Custom
@@ -10,43 +9,38 @@ DEFINE CLASS Documento AS Custom
         THIS.DocumentoEquivalente = CREATEOBJECT("EMPTY")
     ENDPROC
 
-    PROCEDURE setParams
-        LPARAMETERS objeto
+    PROCEDURE setParams(objeto) 
         THIS.Solicitud = CREATEOBJECT("EMPTY")
         ADDPROPERTY(THIS.Solicitud, "Nonce", objeto.nonce)
         ADDPROPERTY(THIS.Solicitud, "Suscriptor", objeto.suscriptor)
     ENDPROC
     
-    PROCEDURE addDocumentoEquivalente
-        LPARAMETERS oClave, objeto
+    PROCEDURE addDocumentoEquivalente(oClave, objeto)
         ADDPROPERTY(THIS.DocumentoEquivalente, oClave, objeto)
     ENDPROC
 ENDDEFINE
 
 DEFINE CLASS ServicioPrueba AS Custom
     loSer = .NULL.
-
     FUNCTION Init
         DO wwJsonSerializer
         Do ReplaceString
-        OPEN DATABASE bdmaster
-        SET DATE DMY
         THIS.loSer = CREATEOBJECT("wwJsonSerializer")
 	ENDFUNC
 
-    FUNCTION PeriodoFactura
-        LPARAMETERS objeto
+    FUNCTION PeriodoFactura(objeto)
+        LOCAL oPeriodoFactura
         oPeriodoFactura = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oPeriodoFactura, "DoepFechaInicial", objeto.doepfechainicial)
         ADDPROPERTY(oPeriodoFactura, "DoepFechaFinal", objeto.doepfechafinal)
         RETURN oPeriodoFactura
     ENDFUNC
 
-    FUNCTION PagosFactura
-        LPARAMETERS objeto    
-        PagosFactura = CREATEOBJECT("EMPTY")
-        ADDPROPERTY(PagosFactura, "ForpCodigo", objeto.forpcodigo)
-        ADDPROPERTY(PagosFactura, "DoepFechaVencimiento", objeto.doepfechavencimiento)
+    FUNCTION PagosFactura(objeto)    
+        LOCAL oPagosFactura, aMedios, cMedio
+        oPagosFactura = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(oPagosFactura, "ForpCodigo", objeto.forpcodigo)
+        ADDPROPERTY(oPagosFactura, "DoepFechaVencimiento", objeto.doepfechavencimiento)
         
         aMedios = CREATEOBJECT("Collection")
         cMedio = CREATEOBJECT("EMPTY")
@@ -54,69 +48,69 @@ DEFINE CLASS ServicioPrueba AS Custom
         ADDPROPERTY(cMedio, "DempDescripcion", objeto.dempdescripcion)
         aMedios.Add(cMedio)
         
-        ADDPROPERTY(PagosFactura, "Medios", aMedios)
-        RETURN PagosFactura
+        ADDPROPERTY(oPagosFactura, "Medios", aMedios)
+        RETURN oPagosFactura
     ENDFUNC	
 
-    FUNCTION Cabecera
-        LPARAMETERS objeto
-        Cabecera = CREATEOBJECT("EMPTY")
-        ADDPROPERTY(Cabecera, "DoceManejaPeriodos", objeto.docemanejaperiodos)
-        ADDPROPERTY(Cabecera, "DoceConsecutivo", objeto.doceconsecutivo)
-        ADDPROPERTY(Cabecera, "DocePrefijo", objeto.doceprefijo)
-        ADDPROPERTY(Cabecera, "DoceFecha", objeto.docefecha)
-        ADDPROPERTY(Cabecera, "DoceCantidadItems", objeto.docecantidaditems)
-        ADDPROPERTY(Cabecera, "DoceLineasWhatsApp", objeto.docelineaswhatsapp)
-        ADDPROPERTY(Cabecera, "AmbdCodigo", objeto.ambdcodigo)
-        ADDPROPERTY(Cabecera, "TipoCodigo", objeto.tipocodigo)
-        ADDPROPERTY(Cabecera, "DoetCodigo", objeto.doetcodigo)
-        ADDPROPERTY(Cabecera, "MoneCodigo", objeto.monecodigo)
-        ADDPROPERTY(Cabecera, "RefvNumero", objeto.refvnumero)
-        ADDPROPERTY(Cabecera, "DoceReferenciaPago", objeto.docereferenciapago)
-        ADDPROPERTY(Cabecera, "EnviarSetPruebas", objeto.enviarsetpruebas)
-        RETURN Cabecera
+    FUNCTION Cabecera(objeto)
+        LOCAL oCabecera
+        oCabecera = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(oCabecera, "DoceManejaPeriodos", objeto.docemanejaperiodos)
+        ADDPROPERTY(oCabecera, "DoceConsecutivo", objeto.doceconsecutivo)
+        ADDPROPERTY(oCabecera, "DocePrefijo", objeto.doceprefijo)
+        ADDPROPERTY(oCabecera, "DoceFecha", objeto.docefecha)
+        ADDPROPERTY(oCabecera, "DoceCantidadItems", objeto.docecantidaditems)
+        ADDPROPERTY(oCabecera, "DoceLineasWhatsApp", objeto.docelineaswhatsapp)
+        ADDPROPERTY(oCabecera, "AmbdCodigo", objeto.ambdcodigo)
+        ADDPROPERTY(oCabecera, "TipoCodigo", objeto.tipocodigo)
+        ADDPROPERTY(oCabecera, "DoetCodigo", objeto.doetcodigo)
+        ADDPROPERTY(oCabecera, "MoneCodigo", objeto.monecodigo)
+        ADDPROPERTY(oCabecera, "RefvNumero", objeto.refvnumero)
+        ADDPROPERTY(oCabecera, "DoceReferenciaPago", objeto.docereferenciapago)
+        ADDPROPERTY(oCabecera, "EnviarSetPruebas", objeto.enviarsetpruebas)
+        RETURN oCabecera
     ENDFUNC	
 
-    FUNCTION Adquiriente 
-        LPARAMETERS objeto 
-        Adquiriente = CREATEOBJECT("EMPTY") 
-        ADDPROPERTY(Adquiriente,"CalcularDv", objeto.calculardv)
-        ADDPROPERTY(Adquiriente,"DoeaEsResponsable", objeto.doeaesresponsable)
-        ADDPROPERTY(Adquiriente,"DoeaEsnacional", objeto.doeaesnacional)
-        ADDPROPERTY(Adquiriente,"DoeaDocumento", objeto.doeadocumento)
-        ADDPROPERTY(Adquiriente,"DoeaDiv", objeto.doeadiv)
-        ADDPROPERTY(Adquiriente,"DoeaRazonSocial", objeto.doearazonsocial)
-        ADDPROPERTY(Adquiriente,"DoeaNombreCiudad", objeto.doeanombreciudad)
-        ADDPROPERTY(Adquiriente,"DoeaNombreDepartamento", objeto.doeanombredepartamento)
-        ADDPROPERTY(Adquiriente,"DoeaPais", objeto.doeapais)
-        ADDPROPERTY(Adquiriente,"DoeaDireccion", objeto.doeadireccion)
-        ADDPROPERTY(Adquiriente,"DoeaObligaciones", objeto.doeaobligaciones)
-        ADDPROPERTY(Adquiriente,"DoeaNombres", objeto.doeanombres)
-        ADDPROPERTY(Adquiriente,"DoeaApellidos", objeto.doeaapellidos)
-        ADDPROPERTY(Adquiriente,"DoeaOtrosNombres", objeto.doeaotrosnombres)
-        ADDPROPERTY(Adquiriente,"DoeaCorreo", objeto.doeacorreo)
-        ADDPROPERTY(Adquiriente,"DoeaTelefono", objeto.doeatelefono)
-        ADDPROPERTY(Adquiriente,"TiotCodigo", objeto.tiotcodigo)
-        ADDPROPERTY(Adquiriente,"CopcCodigo", objeto.copccodigo)
-        ADDPROPERTY(Adquiriente,"RegCodigo", objeto.regcodigo)
-        ADDPROPERTY(Adquiriente,"TidtCodigo", objeto.tidtcodigo)
-        ADDPROPERTY(Adquiriente,"DoeaManejoAdjuntos", objeto.doeamanejoadjuntos)
-        ADDPROPERTY(Adquiriente,"DoeaProcedencia", objeto.doeaprocedencia)
-        RETURN Adquiriente
+    FUNCTION Adquiriente(objeto) 
+        LOCAL oAdquiriente
+        oAdquiriente = CREATEOBJECT("EMPTY") 
+        ADDPROPERTY(oAdquiriente,"CalcularDv", objeto.calculardv)
+        ADDPROPERTY(oAdquiriente,"DoeaEsResponsable", objeto.doeaesresponsable)
+        ADDPROPERTY(oAdquiriente,"DoeaEsnacional", objeto.doeaesnacional)
+        ADDPROPERTY(oAdquiriente,"DoeaDocumento", objeto.doeadocumento)
+        ADDPROPERTY(oAdquiriente,"DoeaDiv", objeto.doeadiv)
+        ADDPROPERTY(oAdquiriente,"DoeaRazonSocial", objeto.doearazonsocial)
+        ADDPROPERTY(oAdquiriente,"DoeaNombreCiudad", objeto.doeanombreciudad)
+        ADDPROPERTY(oAdquiriente,"DoeaNombreDepartamento", objeto.doeanombredepartamento)
+        ADDPROPERTY(oAdquiriente,"DoeaPais", objeto.doeapais)
+        ADDPROPERTY(oAdquiriente,"DoeaDireccion", objeto.doeadireccion)
+        ADDPROPERTY(oAdquiriente,"DoeaObligaciones", objeto.doeaobligaciones)
+        ADDPROPERTY(oAdquiriente,"DoeaNombres", objeto.doeanombres)
+        ADDPROPERTY(oAdquiriente,"DoeaApellidos", objeto.doeaapellidos)
+        ADDPROPERTY(oAdquiriente,"DoeaOtrosNombres", objeto.doeaotrosnombres)
+        ADDPROPERTY(oAdquiriente,"DoeaCorreo", objeto.doeacorreo)
+        ADDPROPERTY(oAdquiriente,"DoeaTelefono", objeto.doeatelefono)
+        ADDPROPERTY(oAdquiriente,"TiotCodigo", objeto.tiotcodigo)
+        ADDPROPERTY(oAdquiriente,"CopcCodigo", objeto.copccodigo)
+        ADDPROPERTY(oAdquiriente,"RegCodigo", objeto.regcodigo)
+        ADDPROPERTY(oAdquiriente,"TidtCodigo", objeto.tidtcodigo)
+        ADDPROPERTY(oAdquiriente,"DoeaManejoAdjuntos", objeto.doeamanejoadjuntos)
+        ADDPROPERTY(oAdquiriente,"DoeaProcedencia", objeto.doeaprocedencia)
+        RETURN oAdquiriente
     ENDFUNC
 
-    FUNCTION AdquirienteContacto
-        LPARAMETERS objeto 
-        AdquirienteContacto = CREATEOBJECT("EMPTY") 
-        ADDPROPERTY(AdquirienteContacto,"DeacNombre", objeto.deacnombre)
-        ADDPROPERTY(AdquirienteContacto,"DeacTelefono", objeto.deactelefono)
-        ADDPROPERTY(AdquirienteContacto,"DeacCorreo", objeto.deaccorreo)
-        ADDPROPERTY(AdquirienteContacto,"DeacCodigo", objeto.deaccodigo)
-        RETURN AdquirienteContacto
+    FUNCTION AdquirienteContacto(objeto) 
+        LOCAL oAdquirienteContacto 
+        oAdquirienteContacto = CREATEOBJECT("EMPTY") 
+        ADDPROPERTY(oAdquirienteContacto,"DeacNombre", objeto.deacnombre)
+        ADDPROPERTY(oAdquirienteContacto,"DeacTelefono", objeto.deactelefono)
+        ADDPROPERTY(oAdquirienteContacto,"DeacCorreo", objeto.deaccorreo)
+        ADDPROPERTY(oAdquirienteContacto,"DeacCodigo", objeto.deaccodigo)
+        RETURN oAdquirienteContacto
     ENDFUNC
 
-    FUNCTION ItemImpuesto
-        LPARAMETERS oItem
+    FUNCTION ItemImpuesto(oItem)
+        LOCAL oDetalle, oImpuesto
 
         oDetalle = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oDetalle, "DediBase",oItem.dedibase) 
@@ -124,87 +118,88 @@ DEFINE CLASS ServicioPrueba AS Custom
         ADDPROPERTY(oDetalle, "DediFactor",oItem.dedifactor) 
         ADDPROPERTY(oDetalle, "UnimCodigo",oItem.unimcodigo) 
 
-        cImpuesto = CREATEOBJECT("EMPTY")
-        ADDPROPERTY(cImpuesto, "DoeiTotal", oItem.doeitotal)
-        ADDPROPERTY(cImpuesto, "DoeiEsPorcentual", oItem.doeiesporcentual)
-        ADDPROPERTY(cImpuesto, "ImpuCodigo", oItem.impucodigo)
-        ADDPROPERTY(cImpuesto, "Detalle", oDetalle)
+        oImpuesto = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(oImpuesto, "DoeiTotal", oItem.doeitotal)
+        ADDPROPERTY(oImpuesto, "DoeiEsPorcentual", oItem.doeiesporcentual)
+        ADDPROPERTY(oImpuesto, "ImpuCodigo", oItem.impucodigo)
+        ADDPROPERTY(oImpuesto, "Detalle", oDetalle)
         
-        RETURN cImpuesto
+        RETURN oImpuesto
     ENDFUNC
 
-    FUNCTION CreateImpuestosFactura
-        LPARAMETERS oImpuestos
-        ImpuestosFactura = CREATEOBJECT("Collection")
+    FUNCTION CreateImpuestosFactura(oImpuestos)
+        LOCAL oImpuestosFactura 
+        oImpuestosFactura = CREATEOBJECT("Collection")
         FOR i = 1 TO oImpuestos.Count
-            ImpuestosFactura.Add(ItemImpuesto(oImpuestos.Item(i)))
+            oImpuestosFactura.Add(THIS.ItemImpuesto(oImpuestos.Item(i)))
         ENDFOR
-        RETURN ImpuestosFactura
+        RETURN oImpuestosFactura
     ENDFUNC
 
-    FUNCTION DetallesFactura
-        LPARAMETERS oDetalles, oImpuestos
-        DetalleFactura = CREATEOBJECT("Collection")
+    FUNCTION DetallesFactura(oDetalles, oImpuestos)
+        LOCAL oDetalleFactura, oImpuestoLinea, oDetalle
+
+        oDetalleFactura = CREATEOBJECT("Collection")
         FOR i = 1 TO oDetalles.Count
             oItem = oDetalles.Item(i)
-            cDetalle = CREATEOBJECT("EMPTY")
-            ADDPROPERTY(cDetalle, "DoeiItem",oItem.doeiitem) 
-            ADDPROPERTY(cDetalle, "DoeiCodigo",oItem.doeicodigo) 
-            ADDPROPERTY(cDetalle, "DoeiDescripcion",oItem.doeidescripcion) 
-            ADDPROPERTY(cDetalle, "DoeiMarca",oItem.doeimarca) 
-            ADDPROPERTY(cDetalle, "DoeiModelo",oItem.doeimodelo) 
-            ADDPROPERTY(cDetalle, "DoeiObservacion",oItem.doeiobservacion) 
-            ADDPROPERTY(cDetalle, "DoeiDatosVendedor",oItem.doeidatosvendedor) 
-            ADDPROPERTY(cDetalle, "DoeiCantidad",oItem.doeicantidad) 
-            ADDPROPERTY(cDetalle, "DoeiCantidadEmpaque",oItem.doeicantidadempaque) 
-            ADDPROPERTY(cDetalle, "DoeiEsObsequio",oItem.doeiesobsequio) 
-            ADDPROPERTY(cDetalle, "DoeiPrecioUnitario",oItem.doeipreciounitario) 
-            ADDPROPERTY(cDetalle, "DoeiPrecioReferencia",oItem.doeiprecioreferencia) 
-            ADDPROPERTY(cDetalle, "DoeiValor",oItem.doeivalor) 
-            ADDPROPERTY(cDetalle, "DoeiTotalDescuentos",oItem.doeitotaldescuentos) 
-            ADDPROPERTY(cDetalle, "DoeiTotalCargos",oItem.doeitotalcargos) 
-            ADDPROPERTY(cDetalle, "DoeiTotalImpuestos",oItem.doeitotalimpuestos) 
-            ADDPROPERTY(cDetalle, "DoeiBase",oItem.doeibase) 
-            ADDPROPERTY(cDetalle, "DoeiSubtotal",oItem.doeisubtotal) 
-            ADDPROPERTY(cDetalle, "TicpCodigo",oItem.ticpcodigo) 
-            ADDPROPERTY(cDetalle, "UnimCodigo",oItem.unimcodigo) 
-            ADDPROPERTY(cDetalle, "CtprCodigo",oItem.ctprcodigo) 
-            ADDPROPERTY(cDetalle, "DoeiNumeroRadicadoRemesa",oItem.doeinumeroradicadoremesa) 
-            ADDPROPERTY(cDetalle, "DoeiNumeroConsecutivoRemesa",oItem.doeinumeroconsecutivoremesa) 
-            ADDPROPERTY(cDetalle, "DoeiValorFleteRemesa",oItem.doeivalorfleteremesa) 
-            ADDPROPERTY(cDetalle, "DoeiCantidadFleteRemesa",oItem.doeicantidadfleteremesa) 
-            ADDPROPERTY(cDetalle, "DoeiUnimCodigoRemesa",oItem.doeiunimcodigoremesa) 
+            oDetalle = CREATEOBJECT("EMPTY")
+            ADDPROPERTY(oDetalle, "DoeiItem",oItem.doeiitem) 
+            ADDPROPERTY(oDetalle, "DoeiCodigo",oItem.doeicodigo) 
+            ADDPROPERTY(oDetalle, "DoeiDescripcion",oItem.doeidescripcion) 
+            ADDPROPERTY(oDetalle, "DoeiMarca",oItem.doeimarca) 
+            ADDPROPERTY(oDetalle, "DoeiModelo",oItem.doeimodelo) 
+            ADDPROPERTY(oDetalle, "DoeiObservacion",oItem.doeiobservacion) 
+            ADDPROPERTY(oDetalle, "DoeiDatosVendedor",oItem.doeidatosvendedor) 
+            ADDPROPERTY(oDetalle, "DoeiCantidad",oItem.doeicantidad) 
+            ADDPROPERTY(oDetalle, "DoeiCantidadEmpaque",oItem.doeicantidadempaque) 
+            ADDPROPERTY(oDetalle, "DoeiEsObsequio",oItem.doeiesobsequio) 
+            ADDPROPERTY(oDetalle, "DoeiPrecioUnitario",oItem.doeipreciounitario) 
+            ADDPROPERTY(oDetalle, "DoeiPrecioReferencia",oItem.doeiprecioreferencia) 
+            ADDPROPERTY(oDetalle, "DoeiValor",oItem.doeivalor) 
+            ADDPROPERTY(oDetalle, "DoeiTotalDescuentos",oItem.doeitotaldescuentos) 
+            ADDPROPERTY(oDetalle, "DoeiTotalCargos",oItem.doeitotalcargos) 
+            ADDPROPERTY(oDetalle, "DoeiTotalImpuestos",oItem.doeitotalimpuestos) 
+            ADDPROPERTY(oDetalle, "DoeiBase",oItem.doeibase) 
+            ADDPROPERTY(oDetalle, "DoeiSubtotal",oItem.doeisubtotal) 
+            ADDPROPERTY(oDetalle, "TicpCodigo",oItem.ticpcodigo) 
+            ADDPROPERTY(oDetalle, "UnimCodigo",oItem.unimcodigo) 
+            ADDPROPERTY(oDetalle, "CtprCodigo",oItem.ctprcodigo) 
+            ADDPROPERTY(oDetalle, "DoeiNumeroRadicadoRemesa",oItem.doeinumeroradicadoremesa) 
+            ADDPROPERTY(oDetalle, "DoeiNumeroConsecutivoRemesa",oItem.doeinumeroconsecutivoremesa) 
+            ADDPROPERTY(oDetalle, "DoeiValorFleteRemesa",oItem.doeivalorfleteremesa) 
+            ADDPROPERTY(oDetalle, "DoeiCantidadFleteRemesa",oItem.doeicantidadfleteremesa) 
+            ADDPROPERTY(oDetalle, "DoeiUnimCodigoRemesa",oItem.doeiunimcodigoremesa) 
 
             oImpuestoLinea = CREATEOBJECT("Collection")
             FOR j = 1 TO oImpuestos.Count
                 oImpuestoLinea.Add(THIS.ItemImpuesto(oImpuestos.Item(j)))
             ENDFOR
-            ADDPROPERTY(cDetalle, "ImpuestosLinea", oImpuestoLinea)
+            ADDPROPERTY(oDetalle, "ImpuestosLinea", oImpuestoLinea)
             
-            DetalleFactura.Add(cDetalle)
+            oDetalleFactura.Add(oDetalle)
         ENDFOR
-        RETURN DetalleFactura
+        RETURN oDetalleFactura
     ENDFUNC
 
-    FUNCTION Factura
-        LPARAMETERS oDocumento    
-        Factura = CREATEOBJECT("EMPTY")
-        ADDPROPERTY(Factura, "Solicitud", oDocumento.Solicitud)
-        ADDPROPERTY(Factura, "DocumentoEquivalente", oDocumento.DocumentoEquivalente)
-        RETURN Factura
+    FUNCTION Factura(oDocumento)
+        LOCAL oFactura    
+        oFactura = CREATEOBJECT("EMPTY")
+        ADDPROPERTY(oFactura, "Solicitud", oDocumento.Solicitud)
+        ADDPROPERTY(oFactura, "DocumentoEquivalente", oDocumento.DocumentoEquivalente)
+        RETURN oFactura
     ENDFUNC
 
-    FUNCTION ResumenImpuestosFactura
-        LPARAMETERS objeto
+    FUNCTION ResumenImpuestosFactura(impuesto)
+        LOCAL oResumen
         oResumen = CREATEOBJECT("EMPTY")
-        ADDPROPERTY(oResumen, "DeriTotalIva", objeto.deritotaliva)
-        ADDPROPERTY(oResumen, "DeriTotalConsumo", objeto.deritotalconsumo)
-        ADDPROPERTY(oResumen, "DeriTotalIca", objeto.deritotalica)
+        ADDPROPERTY(oResumen, "DeriTotalIva", impuesto[1].deritotaliva)
+        ADDPROPERTY(oResumen, "DeriTotalConsumo", impuesto[1].deritotalconsumo)
+        ADDPROPERTY(oResumen, "DeriTotalIca", impuesto[1].deritotalica)
         RETURN oResumen
     ENDFUNC
 
-    FUNCTION TotalesFactura
-        LPARAMETERS objeto
+    FUNCTION TotalesFactura(objeto)
+        LOCAL oTotales
         oTotales = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oTotales, "DoetSubtotal", objeto.doetsubtotal)
         ADDPROPERTY(oTotales, "DoetBase", objeto.doetbase)
@@ -218,8 +213,9 @@ DEFINE CLASS ServicioPrueba AS Custom
         RETURN oTotales
     ENDFUNC
 
-    FUNCTION Extensiones
-        LPARAMETERS objeto
+    FUNCTION Extensiones(objeto)
+        LOCAL oFabricanteSoftware, oBeneficiosComprador, oExtensionesPOS, oExtension, oInformacionCajaVenta
+
         oFabricanteSoftware = CREATEOBJECT("EMPTY")
         ADDPROPERTY(oFabricanteSoftware, "NombreApellido", objeto.nombreapellido)
         ADDPROPERTY(oFabricanteSoftware, "RazonSocial", objeto.razonsocial)
@@ -284,14 +280,14 @@ DEFINE CLASS ServicioPrueba AS Custom
     FUNCTION QueryVentas(marca, numero)
         LOCAL strJson, objJson
 
-        *CREATE TABLE fventas (marca N(2),numero N(10),factura N(10),fecha C(8), hora C(10),tipo C(2), vence C(8),cliente C(20),;
-        *items N(3),valor N(10),valor2 N(10),efectivo2 N(10),efectivo N(10),credito N(10),cheque N(10),tarjeta N(10),;
-        *bono N(10),saldo N(10),codtar C(2),codban C(8),vendedor N(3),nota C(100),separado N(1),bolsas N(2),iconsumo N(6),;
-        *estado C(1),dc_marca N(2),dc_numero N(10),pagado N(10),cambio N(10),banco C(15),numres C(20),valida C(1))
+        * CREATE TABLE fventas (marca N(2),numero N(10),factura N(10),fecha C(8), hora C(10),tipo C(2), vence C(8),cliente C(20),;
+        * items N(3),valor N(10),valor2 N(10),efectivo2 N(10),efectivo N(10),credito N(10),cheque N(10),tarjeta N(10),;
+        * bono N(10),saldo N(10),codtar C(2),codban C(8),vendedor N(3),nota C(100),separado N(1),bolsas N(2),iconsumo N(6),;
+        * estado C(1),dc_marca N(2),dc_numero N(10),pagado N(10),cambio N(10),banco C(15),numres C(20),valida C(1))
 
-        *!*	 INSERT INTO fventas ;
-        *!*	 (marca,numero,factura,fecha,hora,tipo,vence,cliente,items,valor,valor2,efectivo2,efectivo,credito,cheque,tarjeta,bono,saldo,codtar,codban,vendedor,nota,separado,bolsas,iconsumo,estado,dc_marca,dc_numero,pagado,cambio,banco,numres,valida);
-        *!*	 VALUES(6, 2897, 1,'13/05/2024','12:12:00','V','13/05/2024','222222222222', 1, 50000, 50000, 120000, 120000, 0, 0, 0, 0, 0,'','',1,'VENTA 1', 0, 0, 0, 'A', 0, 0, 1, 20000, '', '', '1')
+        * INSERT INTO fventas ;
+        * (marca,numero,factura,fecha,hora,tipo,vence,cliente,items,valor,valor2,efectivo2,efectivo,credito,cheque,tarjeta,bono,saldo,codtar,codban,vendedor,nota,separado,bolsas,iconsumo,estado,dc_marca,dc_numero,pagado,cambio,banco,numres,valida);
+        * VALUES(6, 2897, 1,'13/05/2024','12:12:00','V','13/05/2024','222222222222', 1, 50000, 50000, 120000, 120000, 0, 0, 0, 0, 0,'','',1,'VENTA 1', 0, 0, 0, 'A', 0, 0, 1, 20000, '', '', '1')
 
         SELECT ;
             '' AS docemanejaperiodos, ;
@@ -412,7 +408,6 @@ DEFINE CLASS ServicioPrueba AS Custom
 
     FUNCTION QueryImpuestos(marca, numero)
         LOCAL strJson, objJson
-
         SELECT ;
         '' AS deritotaliva, ;
         '' AS deritotalconsumo, ;
@@ -426,7 +421,7 @@ DEFINE CLASS ServicioPrueba AS Custom
         '' AS dedifactor, ;
         '' AS unimcodigo ;
         FROM fventas ; 
-        WHERE marca=?marca AND numero=?numero; 
+        WHERE marca=?marca AND numero=?numero ; 
         INTO CURSOR cImpuestos 
         
         strJson = THIS.loSer.Serialize("cursor:cImpuestos")
@@ -436,6 +431,7 @@ DEFINE CLASS ServicioPrueba AS Custom
     ENDFUNC
 
     FUNCTION GeneraFile(sFieldValue)
+        LOCAL _file
         _file = FCREATE("test.txt")
         FWRITE(_file, sFieldValue)
         FCLOSE(_file)
@@ -450,16 +446,20 @@ DEFINE CLASS ServicioPrueba AS Custom
     ENDFUNC
 
     FUNCTION Principal(marca, numero)
-        LOCAL oDocumento, oCabecera, oPeriodoFactura, oExtensiones, oResumenImpuestosFactura, oDetalleFactura, oPagosFactura, oAdquiriente, oTotalesFactura, oAdquirienteContacto, oFactura
-        
+        LOCAL oDocumento, oCabecera, oPeriodoFactura, oExtensiones, oResumenImpuestosFactura, oDetalleFactura, oPagosFactura, oAdquiriente, oTotalesFactura, oAdquirienteContacto, oFactura, mStatus, mVenta, mCliente, mDetalle, mImpuestos, sFieldValue 
+		OPEN DATABASE bdmaster
+		SET DATABASE TO bdmaster
+		SET DATE DMY
+		? DBC()
+		
         mStatus = THIS.QueryStatus() 
         mVenta = THIS.QueryVentas(marca, numero)
         mCliente = THIS.QueryCliente(mVenta.cliente)
         mDetalle = THIS.QueryDetalle(marca, numero)
         mImpuestos = THIS.QueryImpuestos(marca, numero)
-
+        
         oDocumento = CREATEOBJECT('Documento')
-        oDocumento.setParams(mStatus)
+        oDocumento.setParams(mStatus) 
         
         oCabecera = THIS.Cabecera(mVenta)
         oDocumento.AddDocumentoEquivalente("Cabecera", oCabecera)
@@ -470,7 +470,7 @@ DEFINE CLASS ServicioPrueba AS Custom
         oExtensiones = THIS.Extensiones(mStatus)
         oDocumento.AddDocumentoEquivalente("Extensiones", oExtensiones)
         
-        oResumenImpuestosFactura = THIS.ResumenImpuestosFactura(mImpuestos[1])
+        oResumenImpuestosFactura = THIS.ResumenImpuestosFactura(mImpuestos)
         oDocumento.AddDocumentoEquivalente("ResumenImpuestosFactura", oResumenImpuestosFactura)
         
         oDetalleFactura = THIS.DetallesFactura(mDetalle, mImpuestos)
@@ -490,7 +490,7 @@ DEFINE CLASS ServicioPrueba AS Custom
         
         oFactura = THIS.Factura(oDocumento)
         sFieldValue = This.ReplaceStr(THIS.loSer.Serialize(oFactura))
-        THIS.GeneraFile(sFieldValue)
+        THIS.GeneraFile(sFieldValue)    
         RETURN .T.
     ENDFUNC
 
