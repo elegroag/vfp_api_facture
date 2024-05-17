@@ -475,3 +475,7 @@ FodyWeavers.xsd
 *.BAK
 datos/
 *.txt
+*.TXT
+*.DBF
+*.dbf
+*.FTP
